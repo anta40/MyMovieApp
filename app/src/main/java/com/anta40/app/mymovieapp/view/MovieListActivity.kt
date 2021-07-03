@@ -1,5 +1,6 @@
 package com.anta40.app.mymovieapp.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -44,6 +45,8 @@ class MovieListActivity : AppCompatActivity(), MovieListClickListener {
     }
 
     override fun onRowClickListener(data: Movie) {
-        Toast.makeText(applicationContext, "Movie title: "+data.original_title, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(applicationContext, "Movie title: "+data.original_title, Toast.LENGTH_SHORT).show()
+        val iii = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
+        startActivity(iii)
     }
 }

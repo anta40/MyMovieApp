@@ -2,4 +2,9 @@
     <string name="app_name">MyMovieApp</string>
 
     <string name="API_KEY">b47440753261d086ab6b14fc74413942</string>
+    <string name="detail.img_description">Movie Image</string>
+    <string name="transition_photo" translatable="false">transition_photo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
