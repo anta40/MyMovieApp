@@ -46,6 +46,7 @@ class MovieListActivity : AppCompatActivity(), MovieListClickListener {
 
     override fun onRowClickListener(data: Movie) {
         val iii = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
+        iii.putExtra("movie_id", data.id)
         iii.putExtra("movie_title", data.original_title)
         iii.putExtra("movie_release_date", data.release_date)
         iii.putExtra("movie_overview", data.overview)

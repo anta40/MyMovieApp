@@ -3,6 +3,7 @@ package com.anta40.app.mymovieapp.model
 import com.google.gson.annotations.SerializedName
 
 data class Movie (
+    @SerializedName("id") val id: Int,
     @SerializedName("original_title") val original_title: String,
     @SerializedName("overview") val overview: String,
     @SerializedName("popularity") val popularity: Float,
