@@ -3,8 +3,10 @@ package com.anta40.app.mymovieapp.view
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.anta40.app.mymovieapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +24,10 @@ class InfoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var txtMovieTitle: TextView
+    private lateinit var txtMovieReleaseDate: TextView
+    private lateinit var txtMovieDescription: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +42,18 @@ class InfoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_info, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        txtMovieTitle = view.findViewById(R.id.movie_title) as TextView
+        txtMovieReleaseDate = view.findViewById(R.id.movie_release_date) as TextView
+        txtMovieDescription = view.findViewById(R.id.movie_description) as TextView
+
+        txtMovieTitle.text = activity?.intent?.getStringExtra("movie_title")
+        txtMovieReleaseDate.text = activity?.intent?.getStringExtra("movie_release_date")
+        txtMovieDescription.text = activity?.intent?.getStringExtra("movie_overview")
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     companion object {

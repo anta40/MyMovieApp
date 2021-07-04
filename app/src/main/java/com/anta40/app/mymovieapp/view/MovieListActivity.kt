@@ -45,8 +45,10 @@ class MovieListActivity : AppCompatActivity(), MovieListClickListener {
     }
 
     override fun onRowClickListener(data: Movie) {
-        //Toast.makeText(applicationContext, "Movie title: "+data.original_title, Toast.LENGTH_SHORT).show()
         val iii = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
+        iii.putExtra("movie_title", data.original_title)
+        iii.putExtra("movie_release_date", data.release_date)
+        iii.putExtra("movie_overview", data.overview)
         startActivity(iii)
     }
 }
