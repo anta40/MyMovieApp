@@ -6,27 +6,25 @@ import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.anta40.app.mymovieapp.R
+import com.bumptech.glide.Glide
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InfoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class InfoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
     private lateinit var txtMovieTitle: TextView
     private lateinit var txtMovieReleaseDate: TextView
     private lateinit var txtMovieDescription: TextView
+    private lateinit var txtMovieRating: TextView
+    private lateinit var imgMovie: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +38,7 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_info, container, false)
     }
 
@@ -48,24 +46,28 @@ class InfoFragment : Fragment() {
         txtMovieTitle = view.findViewById(R.id.movie_title) as TextView
         txtMovieReleaseDate = view.findViewById(R.id.movie_release_date) as TextView
         txtMovieDescription = view.findViewById(R.id.movie_description) as TextView
+        txtMovieRating = view.findViewById(R.id.detail_tv_movie_rating) as TextView
+        imgMovie = view.findViewById(R.id.detail_iv_poster) as ImageView
 
         txtMovieTitle.text = activity?.intent?.getStringExtra("movie_title")
         txtMovieReleaseDate.text = activity?.intent?.getStringExtra("movie_release_date")
         txtMovieDescription.text = activity?.intent?.getStringExtra("movie_overview")
+        txtMovieRating.text = activity?.intent?.getFloatExtra("movie_rating", 0.00f).toString() + " / 10"
+
+        val img_url = activity?.intent?.getStringExtra("movie_poster")
+
+        activity?.let {
+            Glide.with(it)
+                .load("https://image.tmdb.org/t/p/w500/$img_url")
+                .override(300, 300)
+                .into(imgMovie)
+        };
 
         super.onViewCreated(view, savedInstanceState)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment InfoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             InfoFragment().apply {

@@ -38,9 +38,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
         youtube_code = ""
 
-        //setupViewPager(tab_viewpager)
-
-       // tab_tablayout.setupWithViewPager(tab_viewpager)
 
         vm.getTrailerData(intent.getIntExtra("movie_id", 0), resources.getString(R.string.API_KEY))
 
@@ -67,9 +64,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val tf = TrailerFragment()
 
-        System.out.println("YT code: $youtube_code")
         val args = Bundle()
         args.putString("youtube_code", youtube_code)
+        args.putString("img_url", intent?.getStringExtra("movie_poster"))
         tf.arguments = args
         adapter.addFragment(tf, "Trailer")
 
