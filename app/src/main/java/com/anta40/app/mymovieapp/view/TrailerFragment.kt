@@ -48,15 +48,10 @@ class TrailerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         imgTrailer = view.findViewById(R.id.img_trailer) as ImageView
 
-        //val movie
-
         imgTrailer.setOnClickListener {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("youtube.com/watch?v=HRXVQ77ehRQ")
-                )
-            )
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=AvrW9mVE9qU"));
+            activity?.startActivity(intent)
         }
 
         super.onViewCreated(view, savedInstanceState)
