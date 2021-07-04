@@ -22,19 +22,25 @@ import com.google.android.material.tabs.TabLayout
 class MovieDetailActivity : AppCompatActivity() {
 
     private val vm: MovieDetailActivityViewModel by lazy { MovieDetailActivityViewModel() }
+    private lateinit var youtube_code: String
 
+    private lateinit var tab_toolbar: Toolbar
+    private lateinit var tab_viewpager: ViewPager
+    private lateinit var tab_tablayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        var tab_toolbar = findViewById<Toolbar>(R.id.toolbar)
-        var tab_viewpager = findViewById<ViewPager>(R.id.tab_viewpager)
-        var tab_tablayout = findViewById<TabLayout>(R.id.tab_tablayout)
+        tab_toolbar = findViewById<Toolbar>(R.id.toolbar)
+        tab_viewpager = findViewById<ViewPager>(R.id.tab_viewpager)
+        tab_tablayout = findViewById<TabLayout>(R.id.tab_tablayout)
 
-        setupViewPager(tab_viewpager)
+        youtube_code = ""
 
-        tab_tablayout.setupWithViewPager(tab_viewpager)
+        //setupViewPager(tab_viewpager)
+
+       // tab_tablayout.setupWithViewPager(tab_viewpager)
 
         vm.getTrailerData(intent.getIntExtra("movie_id", 0), resources.getString(R.string.API_KEY))
 
@@ -47,9 +53,9 @@ class MovieDetailActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Data kosong", Toast.LENGTH_SHORT).show()
             }
             else  {
-                it.trailers.forEach {
-                    System.out.println(it.id.toString() + " --- " + it.key + " --- " +it.site)
-                }
+                youtube_code = it.trailers.get(0).key
+                setupViewPager(tab_viewpager)
+                tab_tablayout.setupWithViewPager(tab_viewpager)
             }
         }
     }
@@ -58,7 +64,15 @@ class MovieDetailActivity : AppCompatActivity() {
         var adapter: ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
 
         adapter.addFragment(InfoFragment(), "Info")
-        adapter.addFragment(TrailerFragment(), "Trailer")
+
+        val tf = TrailerFragment()
+
+        System.out.println("YT code: $youtube_code")
+        val args = Bundle()
+        args.putString("youtube_code", youtube_code)
+        tf.arguments = args
+        adapter.addFragment(tf, "Trailer")
+
         adapter.addFragment(ReviewFragment(), "Review")
 
         viewpager.setAdapter(adapter)

@@ -22,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TrailerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TrailerFragment : Fragment() {
+class TrailerFragment: Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -49,13 +49,15 @@ class TrailerFragment : Fragment() {
         imgTrailer = view.findViewById(R.id.img_trailer) as ImageView
 
         imgTrailer.setOnClickListener {
-
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=AvrW9mVE9qU"));
+            val args = arguments
+            val youtube_code =  args?.getString("youtube_code")
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$youtube_code"));
             activity?.startActivity(intent)
         }
 
         super.onViewCreated(view, savedInstanceState)
     }
+
 
     companion object {
         /**
@@ -64,15 +66,15 @@ class TrailerFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment TrailerFragment.
+         * @return A new instance of fragment InfoFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TrailerFragment().apply {
+        fun newInstance(youtube_code: String) =
+            InfoFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString("youtube_code", "")
+                    //putString(ARG_PARAM2, param2)
                 }
             }
     }
