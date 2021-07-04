@@ -52,7 +52,8 @@ class TrailerFragment: Fragment() {
         activity?.let {
             Glide.with(it)
                 .load("https://image.tmdb.org/t/p/w500/$img_url")
-                .override(1200, 300)
+                .fitCenter()
+                .placeholder(R.drawable.poster_noimage)
                 .into(imgTrailer)
         };
 

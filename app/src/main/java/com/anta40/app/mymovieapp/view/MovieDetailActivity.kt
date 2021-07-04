@@ -66,7 +66,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val args = Bundle()
         args.putString("youtube_code", youtube_code)
-        args.putString("img_url", intent?.getStringExtra("movie_poster"))
+        args.putString("img_url", intent?.getStringExtra("movie_backdrop"))
         tf.arguments = args
         adapter.addFragment(tf, "Trailer")
 
