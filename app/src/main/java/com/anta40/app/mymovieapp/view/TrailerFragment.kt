@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.anta40.app.mymovieapp.R
+import android.content.Intent
+import android.net.Uri
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,8 @@ class TrailerFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var imgTrailer: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +43,23 @@ class TrailerFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_trailer, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        imgTrailer = view.findViewById(R.id.img_trailer) as ImageView
+
+        //val movie
+
+        imgTrailer.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("youtube.com/watch?v=HRXVQ77ehRQ")
+                )
+            )
+        }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     companion object {

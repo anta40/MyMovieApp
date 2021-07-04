@@ -50,6 +50,9 @@ class MovieListActivity : AppCompatActivity(), MovieListClickListener {
         iii.putExtra("movie_title", data.original_title)
         iii.putExtra("movie_release_date", data.release_date)
         iii.putExtra("movie_overview", data.overview)
+        iii.putExtra("movie_rating", data.vote_average)
+        iii.putExtra("movie_poster", data.poster_path)
+        iii.putExtra("movie_backdrop", data.backdrop_path)
         startActivity(iii)
     }
 }
