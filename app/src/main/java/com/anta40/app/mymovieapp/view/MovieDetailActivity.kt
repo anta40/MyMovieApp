@@ -62,15 +62,19 @@ class MovieDetailActivity : AppCompatActivity() {
 
         adapter.addFragment(InfoFragment(), "Info")
 
-        val tf = TrailerFragment()
 
-        val args = Bundle()
-        args.putString("youtube_code", youtube_code)
-        args.putString("img_url", intent?.getStringExtra("movie_backdrop"))
-        tf.arguments = args
+        val tf = TrailerFragment()
+        val trailer_args = Bundle()
+        trailer_args.putString("youtube_code", youtube_code)
+        trailer_args.putString("img_url", intent?.getStringExtra("movie_backdrop"))
+        tf.arguments = trailer_args
         adapter.addFragment(tf, "Trailer")
 
-        adapter.addFragment(ReviewFragment(), "Review")
+        val rf = ReviewFragment()
+        val review_args = Bundle()
+        review_args.putInt("movie_id", intent.getIntExtra("movie_id", 0))
+        rf.arguments = review_args
+        adapter.addFragment(rf, "Review")
 
         viewpager.setAdapter(adapter)
     }

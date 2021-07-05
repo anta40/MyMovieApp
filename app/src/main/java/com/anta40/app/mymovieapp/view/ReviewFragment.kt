@@ -5,22 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.anta40.app.mymovieapp.R
+import com.anta40.app.mymovieapp.adapter.GenreAdapter
+import com.anta40.app.mymovieapp.adapter.ReviewAdapter
+import com.anta40.app.mymovieapp.viewmodel.MovieDetailActivityViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ReviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recview_review: RecyclerView
+    private val vm: MovieDetailActivityViewModel by lazy { MovieDetailActivityViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,26 +35,41 @@ class ReviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_review, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        recview_review = view.findViewById(R.id.recview_review) as RecyclerView
+        val args = arguments
+        val movie_id = args!!.getInt("movie_id")
+
+        vm.getTrailerData(movie_id, resources.getString(R.string.API_KEY))
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun observe() {
+        vm.reviewLiveData.observe(this) {
+            if (it.reviews.isEmpty()){
+                Toast.makeText(activity?.applicationContext, "Data kosong", Toast.LENGTH_SHORT).show()
+            }
+            else  {
+                val review_adapter = ReviewAdapter(it.reviews)
+                recview_review.layoutManager = LinearLayoutManager(activity?.applicationContext,
+                    LinearLayoutManager.VERTICAL, false)
+                recview_review.adapter = review_adapter
+            }
+        }
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(movie_id: Int) =
             ReviewFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt("movie_id", 0)
                 }
             }
     }

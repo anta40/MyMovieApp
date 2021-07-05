@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.anta40.app.mymovieapp.R
 import android.content.Intent
 import android.net.Uri
+import com.anta40.app.mymovieapp.viewmodel.MovieDetailActivityViewModel
 import com.bumptech.glide.Glide
 
 
@@ -25,6 +26,7 @@ class TrailerFragment: Fragment() {
     private var param2: String? = null
 
     private lateinit var imgTrailer: ImageView
+    private val vm: MovieDetailActivityViewModel by lazy { MovieDetailActivityViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,8 @@ class TrailerFragment: Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        vm.getTrailerData(2, "");
     }
 
     override fun onCreateView(

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anta40.app.mymovieapp.R
 import com.anta40.app.mymovieapp.model.Review
 
-class ReviewAdapter(private val context: Context, private val dataSet: List<Review>):
+class ReviewAdapter(private val dataSet: List<Review>):
     RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
